@@ -20,7 +20,7 @@ Rooms Patient[MAX_ROOMS] = {
     {100, "Full", 1},
     {200, "Full", 2},
     {300, "Empty", 3},
-    {400, "Full", 4},
+    {400, "Full", 4}
 };
 
 typedef struct {
@@ -71,17 +71,65 @@ Patients Data[MAX_ROOMS] = {
 };
 void Creat_New_Account() 
 {
+    u8 Is_Created = 1;
     Account = malloc((MAX_USERS + 1) * sizeof(User));
     if (Account == NULL) 
     {
-        printf("Error: Unable to allocate memory for the new account.\n");
+        printf("Error: Try Again Later :( \n");
         return;
     }
 
     printf("Please Enter your Username: ");
     scanf("%s", Account->Username);
+    
     printf("Please Enter your Password: ");
     scanf("%s", Account->Password);
+
+    if ((strcmp(Account->Username, AdminUser.Username) == 0) || 
+        (strcmp(Account->Username, Ramy.Username) == 0) ||
+        (strcmp(Account->Username, Seif.Username) == 0) || 
+        (strcmp(Account->Username, Daniel.Username) == 0) ||
+        (strcmp(Account->Username, Mohamed.Username) == 0))
+    {
+        Is_Created = 0;
+        printf("The Account Is Already Exist, Please Try Another Name \n");
+        for (u8 i = 0; i <= MAX_USERS; i++) 
+        {
+            if (Is_Created == 0) 
+            {
+                printf("Please Enter your Username: ");
+                scanf("%s", Account->Username);
+
+                printf("Please Enter your Password: ");
+                scanf("%s", Account->Password);
+
+                if ((strcmp(Account->Username, AdminUser.Username) != 0) && 
+                    (strcmp(Account->Username, Ramy.Username) != 0) &&
+                    (strcmp(Account->Username, Seif.Username) != 0) && 
+                    (strcmp(Account->Username, Daniel.Username) != 0) &&
+                    (strcmp(Account->Username, Mohamed.Username) != 0))
+                {
+                    printf("Account Created Successfully!\n");
+                    Is_Created = 1;
+                } 
+                else 
+                {
+                    printf("The Account Is Already Exist, Please Try Another Name\n");
+                }
+            } 
+            else 
+            {
+                break;
+            }
+        }
+    }
+
+    if (Is_Created == 1) 
+    {
+        printf("Account Created Successfully!\n");
+        Is_Created = 1;
+    }
+
 }
 
 void Log_In() 
@@ -104,23 +152,22 @@ void Log_In()
     (strcmp(Account->Password, Mohamed.Password) == 0)))
 
     {
-        printf("User Login Successful!\n");
+        printf("User Login Successful \n");
         Log_InCheck = 1;
     }
    if (Log_InCheck == 0)
     {
      printf("Invalid input. Exiting program.\n");
-     exit(1);
+     exit ;
     }
 }
 
 void Remove_Current_Reservation() 
 {
     u8 patientName[100];
+    u8 ReservationFound = 0;
     printf("Enter the name of the patient to remove reservation: \n");
     scanf("%s", patientName);
-
-    u8 ReservationFound = 0;
     for (u8 i = 0; i < MAX_ROOMS; i++) 
     {
         if (strcmp(patientName, Data[i].Name) == 0) 
@@ -145,7 +192,7 @@ void Check_Empty_Rooms()
     {
         if (strcmp(Patient[i].Is_empty, "Empty") == 0) 
         {
-            printf("Room Number: %d\n", i + 1);
+            printf("Room Number : %d\n", i+1);
             emptyRoomsFound = 1;
         }
     }
@@ -158,10 +205,10 @@ void Check_Empty_Rooms()
 void Patient_Data() 
 {
     u8 patientName[100];
+    u8 PatientFound = 0;
     printf("Enter the name of the patient to view data: \n");
     scanf("%s", patientName);
-
-    u8 PatientFound = 0;
+    
     for (u8 i = 0; i < MAX_ROOMS; i++) 
     {
         if (strcmp(patientName, Data[i].Name) == 0) 
@@ -184,8 +231,8 @@ void ExitSystem()
 
 int main() 
 {
-    u8 Continue = 0;
-    while (Continue == 0) 
+    u8 Continue = 'y';
+    while ((Continue == 'Y')||(Continue == 'y')) 
     {
         Account = malloc(MAX_USERS * sizeof(User));
         u8 choice;
@@ -195,7 +242,7 @@ int main()
         printf("\n 2. Login");
         printf("\n 3. Exit\n");
         printf("\n Enter your choice: \n");
-        scanf("%hhd", &choice);
+        scanf("%s", &choice);
 
         switch (choice) 
         {
@@ -209,17 +256,25 @@ int main()
                 switch (choice1) 
                 {
                     case (1):
+                    {
                         Remove_Current_Reservation();
                         break;
+                    }
                     case (2):
+                    {
                         Check_Empty_Rooms();
                         break;
+                    }
                     case (3):
+                    {
                         Patient_Data();
                         break;
+                    }
                     default:
+                    {
                         printf("Invalid input Please try again.\n");
                         break;
+                    }
                 }
                 break;
             case (2):
@@ -234,18 +289,27 @@ int main()
                     switch (choice1) 
                     {
                         case (1):
+                        {
                             Remove_Current_Reservation();
                             break;
+                        }
                         case (2):
+                        {
                             Check_Empty_Rooms();
                             break;
+                        }
                         case (3):
+                        {
                             Patient_Data();
                             break;
+                        }
                         default:
+                        {
                             printf("Invalid input Please try again.\n");
                             break;
+                        }
                     }
+                    
                 } 
                 else 
                 {
@@ -253,17 +317,22 @@ int main()
                     printf("Failed to login please try again \n");
                 }
                 break;
+                }
             case (3):
+            {
                 ExitSystem();
                 Continue = 1;
                 break;
+            }
             default:
+            {
                 printf("Invalid input. Please try again.\n");
                 break;
+            }
         }
         free(Account);
-        printf("Please Enter 0 To Continue Or Any Other Letter To EXIT \n");
-        scanf("%hhd", &Continue);
+        printf("Please Enter (Y) To Continue Or Any Other Letter To EXIT \n");
+        scanf("%s", &Continue);
     }
     return 0;
 }
