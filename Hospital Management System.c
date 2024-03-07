@@ -247,7 +247,7 @@ int main()
                 printf("\n 1.Remove Current Reservation");
                 printf("\n 2.Check Empty Rooms");
                 printf("\n 3.Update Patient's data\n");
-                scanf("%c", &choice1);
+                scanf("%hhd", &choice1);
                 switch (choice1) 
                 {
                     case (1):
