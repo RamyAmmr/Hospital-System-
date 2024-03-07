@@ -1,14 +1,9 @@
-    /*
-    * Author: Ramy Amr & Seif Saleh
-    * Version: 1.1
-    * Description: Hopsital System 
-    */
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include <time.h>
-    #include "STD_TYPES.h"
-    #include "HOSPITAL_FUNCTIONS.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include "STD_TYPES.h"
+#include "HOSPITAL_FUNCTIONS.h"
 
 typedef struct {
     u32 Room_number;
@@ -192,7 +187,7 @@ void Check_Empty_Rooms()
     {
         if (strcmp(Patient[i].Is_empty, "Empty") == 0) 
         {
-            printf("Room Number : %d\n", i+1);
+            printf("Room Number : %d\n", Patient[i].Room_number);
             emptyRoomsFound = 1;
         }
     }
@@ -242,7 +237,7 @@ int main()
         printf("\n 2. Login");
         printf("\n 3. Exit\n");
         printf("\n Enter your choice: \n");
-        scanf("%s", &choice);
+        scanf(" %hhd", &choice);
 
         switch (choice) 
         {
@@ -252,7 +247,7 @@ int main()
                 printf("\n 1.Remove Current Reservation");
                 printf("\n 2.Check Empty Rooms");
                 printf("\n 3.Update Patient's data\n");
-                scanf("%hhd", &choice1);
+                scanf("%c", &choice1);
                 switch (choice1) 
                 {
                     case (1):
@@ -317,7 +312,6 @@ int main()
                     printf("Failed to login please try again \n");
                 }
                 break;
-                }
             case (3):
             {
                 ExitSystem();
@@ -332,6 +326,6 @@ int main()
         }
         free(Account);
         printf("Please Enter (Y) To Continue Or Any Other Letter To EXIT \n");
-        scanf("%s", &Continue);
+        scanf(" %c", &Continue);
     }
 }
