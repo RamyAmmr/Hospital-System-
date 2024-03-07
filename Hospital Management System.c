@@ -1,6 +1,6 @@
     /*
     * Author: Ramy Amr & Seif Saleh
-    * Version: 1.0
+    * Version: 1.1
     * Description: Hopsital System 
     */
     #include <stdio.h>
@@ -334,5 +334,4 @@ int main()
         printf("Please Enter (Y) To Continue Or Any Other Letter To EXIT \n");
         scanf("%s", &Continue);
     }
-    return 0;
 }
