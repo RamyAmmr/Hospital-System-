@@ -10,7 +10,7 @@
 
 void Creat_New_Account();
 void Log_In();
-u32 ExitSystem();
+void ExitSystem();
 void Patient_Data();
 void Remove_Current_Reservation();
 void Check_Empty_Rooms();
